@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Project</title>
+</head>
+<body style="background-color: #34495E;">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Project Python</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/home">หน้าหลัก</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/logout">ออกจากระบบ</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">เพิ่มข้อมูล</div>
+            <div class="card-body">
+                <form action="{{ url_for('save') }}" method="POST">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">ชื่อจริง</span>
+                                <input type="text" class="form-control" name="name" placeholder="ชื่อจริง" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">นามสกุล</span>
+                                <input type="text" class="form-control" name="lastname" placeholder="นามสกุล" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="input-group mb-3">
+                                <button type="submit" class="btn btn-success w-75">บันทึก</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {% if data %}
+                    <table class="table table-bordered table-striped table-hover mt-3">
+                        <tr>
+                            <th>ชื่อจริง</th>
+                            <th>นามสกุล</th>
+                            <th>ตัวเลือก</th>
+                        </tr>
+                        {% for row in data %}
+                            <tr>
+                                <td>{{ row.name }}</td>
+                                <td>{{ row.lastname }}</td>
+                                <td>
+                                    <a href="/delete/{{ row.name }}" class="btn btn-danger">ลบ</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
